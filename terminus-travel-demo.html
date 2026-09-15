@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Terminus Travel Alger — Agence de Voyages à Bouzareah</title>
+<meta name="description" content="Terminus Travel Alger, agence de voyages à Bouzareah : Omra, séjours internationaux, tourisme national, billetterie et visas. Note 4,9/5 sur plus de 152 avis.">
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: {
+            950: '#071426',
+            900: '#0b1f3a',
+            800: '#0f2c50',
+            700: '#153a68',
+          },
+          sunset: {
+            400: '#ffb648',
+            500: '#f7931e',
+            600: '#e97a12',
+          },
+          azur: {
+            400: '#3fc1c9',
+            500: '#20a4b0',
+          }
+        },
+        fontFamily: {
+          display: ['Poppins', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+        },
+        boxShadow: {
+          card: '0 10px 30px -10px rgba(7, 20, 38, 0.25)',
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+  h1, h2, h3, h4, .font-display { font-family: 'Poppins', sans-serif; }
+
+  /* Hero background */
+  .hero-bg {
+    background-image:
+      linear-gradient(120deg, rgba(7,20,38,0.88) 0%, rgba(11,31,58,0.75) 45%, rgba(15,44,80,0.55) 100%),
+      url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Fade-in on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* Card hover lift */
+  .formule-card { transition: transform 0.35s ease, box-shadow 0.35s ease; }
+  .formule-card:hover { transform: translateY(-8px); }
+  .formule-card .formule-img { transition: transform 0.6s ease; }
+  .formule-card:hover .formule-img { transform: scale(1.08); }
+
+  /* Mobile menu */
+  #menu-mobile { transition: max-height 0.35s ease, opacity 0.3s ease; max-height: 0; opacity: 0; overflow: hidden; }
+  #menu-mobile.open { max-height: 400px; opacity: 1; }
+
+  /* Custom scrollbar accent for testimonials on desktop (subtle) */
+  ::selection { background: #f7931e; color: #071426; }
+
+  /* Star rating */
+  .stars svg { fill: #f7931e; stroke: #f7931e; }
+
+  /* Success modal */
+  #modal-succes { transition: opacity 0.3s ease; }
+</style>
+</head>
+
+<body class="bg-white text-navy-900 antialiased">
+
+<!-- ================= NAVBAR ================= -->
+<header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-navy-950/90 backdrop-blur-md shadow-lg shadow-navy-950/10">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16 md:h-20">
+    <!-- Logo -->
+    <a href="#accueil" class="flex items-center gap-2 shrink-0">
+      <span class="flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-xl bg-gradient-to-br from-sunset-400 to-sunset-600 text-navy-950">
+        <i data-lucide="plane-takeoff" class="w-5 h-5 md:w-6 md:h-6"></i>
+      </span>
+      <span class="font-display font-bold text-lg md:text-xl text-white leading-none">
+        Terminus <span class="text-sunset-400">Travel</span>
+      </span>
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden lg:flex items-center gap-9 font-body font-medium text-sm text-white/90">
+      <li><a href="#accueil" class="hover:text-sunset-400 transition-colors">Accueil</a></li>
+      <li><a href="#formules" class="hover:text-sunset-400 transition-colors">Nos Formules</a></li>
+      <li><a href="#avis" class="hover:text-sunset-400 transition-colors">Avis</a></li>
+      <li><a href="#contact" class="hover:text-sunset-400 transition-colors">Contact</a></li>
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <a href="#devis" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-sunset-500 to-sunset-600 hover:from-sunset-400 hover:to-sunset-500 text-navy-950 font-display font-semibold text-sm px-5 py-2.5 rounded-full shadow-lg shadow-sunset-600/30 transition-all">
+        <i data-lucide="send" class="w-4 h-4"></i>
+        Demander un Devis
+      </a>
+      <!-- Burger -->
+      <button id="btn-menu" aria-label="Ouvrir le menu" class="lg:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors">
+        <i data-lucide="menu" class="w-6 h-6" id="icon-menu-open"></i>
+        <i data-lucide="x" class="w-6 h-6 hidden" id="icon-menu-close"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="menu-mobile" class="lg:hidden bg-navy-950/98 border-t border-white/10">
+    <ul class="flex flex-col px-6 py-4 gap-1 font-body font-medium text-white/90">
+      <li><a href="#accueil" class="block py-2.5 hover:text-sunset-400 transition-colors nav-mobile-link">Accueil</a></li>
+      <li><a href="#formules" class="block py-2.5 hover:text-sunset-400 transition-colors nav-mobile-link">Nos Formules</a></li>
+      <li><a href="#avis" class="block py-2.5 hover:text-sunset-400 transition-colors nav-mobile-link">Avis</a></li>
+      <li><a href="#contact" class="block py-2.5 hover:text-sunset-400 transition-colors nav-mobile-link">Contact</a></li>
+      <li class="pt-2">
+        <a href="#devis" class="nav-mobile-link flex items-center justify-center gap-2 bg-gradient-to-r from-sunset-500 to-sunset-600 text-navy-950 font-display font-semibold text-sm px-5 py-3 rounded-full">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          Demander un Devis
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="accueil" class="hero-bg relative min-h-[100svh] flex items-center pt-16 md:pt-20">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 w-full py-16 md:py-24">
+    <div class="max-w-2xl reveal">
+      <span class="inline-flex items-center gap-2 bg-white/10 border border-white/20 backdrop-blur-sm text-sunset-400 font-body font-semibold text-xs sm:text-sm px-4 py-1.5 rounded-full mb-6">
+        <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+        Bouzareah, Alger
+      </span>
+      <h1 class="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-5">
+        Explorez le monde avec l'agence de confiance à Bouzareah
+      </h1>
+      <p class="text-white/85 text-base sm:text-lg md:text-xl mb-4 font-body">
+        Omra, séjours à l'international, tourisme national et billetterie : Terminus Travel organise votre voyage du premier appel jusqu'à votre retour, avec sérieux et réactivité.
+      </p>
+      <div class="flex items-center gap-2 mb-9 text-white/90 font-body">
+        <div class="flex stars">
+          <i data-lucide="star" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          <i data-lucide="star" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          <i data-lucide="star" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          <i data-lucide="star" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          <i data-lucide="star" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+        </div>
+        <span class="text-sm sm:text-base"><strong class="text-white">4,9/5</strong> — déjà plus de 152 avis de voyageurs satisfaits</span>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="#formules" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-sunset-500 to-sunset-600 hover:from-sunset-400 hover:to-sunset-500 text-navy-950 font-display font-semibold px-7 py-3.5 rounded-full shadow-xl shadow-sunset-600/30 transition-all">
+          Découvrir nos séjours
+          <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+        </a>
+        <a href="#devis" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-display font-semibold px-7 py-3.5 rounded-full backdrop-blur-sm transition-all">
+          <i data-lucide="phone-call" class="w-4 h-4"></i>
+          Être rappelé gratuitement
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- scroll cue -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 animate-bounce hidden sm:block">
+    <i data-lucide="chevron-down" class="w-7 h-7"></i>
+  </div>
+</section>
+
+<!-- ================= RÉASSURANCE / COMPTEURS ================= -->
+<section class="bg-white -mt-1 relative z-10">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 -translate-y-10 sm:-translate-y-14">
+      <div class="reveal bg-white rounded-2xl shadow-card border border-navy-900/5 p-5 sm:p-6 text-center">
+        <div class="w-11 h-11 sm:w-12 sm:h-12 mx-auto mb-3 rounded-xl bg-sunset-500/10 flex items-center justify-center text-sunset-600">
+          <i data-lucide="star" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+        </div>
+        <p class="font-display font-extrabold text-xl sm:text-2xl text-navy-900">4,9/5</p>
+        <p class="text-xs sm:text-sm text-navy-900/60 font-body">Note Google (152+ avis)</p>
+      </div>
+      <div class="reveal bg-white rounded-2xl shadow-card border border-navy-900/5 p-5 sm:p-6 text-center">
+        <div class="w-11 h-11 sm:w-12 sm:h-12 mx-auto mb-3 rounded-xl bg-azur-500/10 flex items-center justify-center text-azur-500">
+          <i data-lucide="headset" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+        </div>
+        <p class="font-display font-extrabold text-xl sm:text-2xl text-navy-900">24h/7j</p>
+        <p class="text-xs sm:text-sm text-navy-900/60 font-body">Assistance voyageurs</p>
+      </div>
+      <div class="reveal bg-white rounded-2xl shadow-card border border-navy-900/5 p-5 sm:p-6 text-center">
+        <div class="w-11 h-11 sm:w-12 sm:h-12 mx-auto mb-3 rounded-xl bg-sunset-500/10 flex items-center justify-center text-sunset-600">
+          <i data-lucide="award" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+        </div>
+        <p class="font-display font-extrabold text-xl sm:text-2xl text-navy-900">3+ ans</p>
+        <p class="text-xs sm:text-sm text-navy-900/60 font-body">D'expertise voyage</p>
+      </div>
+      <div class="reveal bg-white rounded-2xl shadow-card border border-navy-900/5 p-5 sm:p-6 text-center">
+        <div class="w-11 h-11 sm:w-12 sm:h-12 mx-auto mb-3 rounded-xl bg-azur-500/10 flex items-center justify-center text-azur-500">
+          <i data-lucide="heart-handshake" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+        </div>
+        <p class="font-display font-extrabold text-xl sm:text-2xl text-navy-900">100%</p>
+        <p class="text-xs sm:text-sm text-navy-900/60 font-body">Conseils personnalisés</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FORMULES & DESTINATIONS ================= -->
+<section id="formules" class="bg-navy-900/[0.02] py-16 sm:py-20 md:py-28">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16 reveal">
+      <span class="text-sunset-600 font-display font-semibold text-sm uppercase tracking-wider">Nos Formules</span>
+      <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-navy-900 mt-3 mb-4">
+        Un voyage sur-mesure pour chaque projet
+      </h2>
+      <p class="text-navy-900/60 font-body">
+        Que vous partiez pour un pèlerinage, des vacances en famille ou une excursion dans le Sud algérien, notre équipe s'occupe de tout.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Omra -->
+      <div class="formule-card reveal group bg-white rounded-2xl overflow-hidden shadow-card border border-navy-900/5 flex flex-col">
+        <div class="relative h-44 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?q=80&w=1200&auto=format&fit=crop" alt="Formule Omra" class="formule-img w-full h-full object-cover">
+          <span class="absolute top-3 left-3 bg-navy-950/85 text-white text-xs font-body font-semibold px-3 py-1 rounded-full backdrop-blur-sm">Spirituel</span>
+        </div>
+        <div class="p-5 sm:p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-sunset-500/10 flex items-center justify-center text-sunset-600 mb-3">
+            <i data-lucide="moon-star" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-navy-900 mb-2">Formule Omra</h3>
+          <p class="text-sm text-navy-900/60 font-body flex-1">
+            Accompagnement complet du dossier au retour, hôtels proches des Haramaïns, transport et guide dédié pour un pèlerinage serein.
+          </p>
+          <a href="#devis" class="mt-4 inline-flex items-center gap-1.5 text-sunset-600 font-display font-semibold text-sm hover:gap-2.5 transition-all">
+            Demander un devis <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Séjours internationaux -->
+      <div class="formule-card reveal group bg-white rounded-2xl overflow-hidden shadow-card border border-navy-900/5 flex flex-col">
+        <div class="relative h-44 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?q=80&w=1200&auto=format&fit=crop" alt="Séjours internationaux" class="formule-img w-full h-full object-cover">
+          <span class="absolute top-3 left-3 bg-navy-950/85 text-white text-xs font-body font-semibold px-3 py-1 rounded-full backdrop-blur-sm">International</span>
+        </div>
+        <div class="p-5 sm:p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-azur-500/10 flex items-center justify-center text-azur-500 mb-3">
+            <i data-lucide="plane" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-navy-900 mb-2">Séjours Internationaux</h3>
+          <p class="text-sm text-navy-900/60 font-body flex-1">
+            Turquie, Tunisie, Europe : vols et hôtels inclus dans des formules pensées pour les familles, couples et voyageurs d'affaires.
+          </p>
+          <a href="#devis" class="mt-4 inline-flex items-center gap-1.5 text-sunset-600 font-display font-semibold text-sm hover:gap-2.5 transition-all">
+            Demander un devis <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Tourisme national -->
+      <div class="formule-card reveal group bg-white rounded-2xl overflow-hidden shadow-card border border-navy-900/5 flex flex-col">
+        <div class="relative h-44 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1200&auto=format&fit=crop" alt="Tourisme national" class="formule-img w-full h-full object-cover">
+          <span class="absolute top-3 left-3 bg-navy-950/85 text-white text-xs font-body font-semibold px-3 py-1 rounded-full backdrop-blur-sm">Algérie</span>
+        </div>
+        <div class="p-5 sm:p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-sunset-500/10 flex items-center justify-center text-sunset-600 mb-3">
+            <i data-lucide="mountain" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-navy-900 mb-2">Tourisme National</h3>
+          <p class="text-sm text-navy-900/60 font-body flex-1">
+            Excursions organisées vers Taghit, Djanet et le grand Sud algérien : dunes, oasis et patrimoine, en toute tranquillité.
+          </p>
+          <a href="#devis" class="mt-4 inline-flex items-center gap-1.5 text-sunset-600 font-display font-semibold text-sm hover:gap-2.5 transition-all">
+            Demander un devis <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Billetterie & visas -->
+      <div class="formule-card reveal group bg-white rounded-2xl overflow-hidden shadow-card border border-navy-900/5 flex flex-col">
+        <div class="relative h-44 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200&auto=format&fit=crop" alt="Billetterie et visas" class="formule-img w-full h-full object-cover">
+          <span class="absolute top-3 left-3 bg-navy-950/85 text-white text-xs font-body font-semibold px-3 py-1 rounded-full backdrop-blur-sm">Formalités</span>
+        </div>
+        <div class="p-5 sm:p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-azur-500/10 flex items-center justify-center text-azur-500 mb-3">
+            <i data-lucide="ticket" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-display font-bold text-lg text-navy-900 mb-2">Billetterie & Visas</h3>
+          <p class="text-sm text-navy-900/60 font-body flex-1">
+            Réservation rapide de billets d'avion toutes compagnies et accompagnement complet pour la constitution de vos dossiers de visa.
+          </p>
+          <a href="#devis" class="mt-4 inline-flex items-center gap-1.5 text-sunset-600 font-display font-semibold text-sm hover:gap-2.5 transition-all">
+            Demander un devis <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= AVIS CLIENTS ================= -->
+<section id="avis" class="py-16 sm:py-20 md:py-28 bg-navy-950 relative overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.06] pointer-events-none" style="background-image:radial-gradient(circle at 20% 20%, white 1px, transparent 1px);background-size:26px 26px;"></div>
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 relative">
+    <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16 reveal">
+      <span class="text-sunset-400 font-display font-semibold text-sm uppercase tracking-wider">Avis Clients</span>
+      <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-white mt-3 mb-4">
+        Ce que disent nos voyageurs
+      </h2>
+      <div class="flex items-center justify-center gap-2 text-white/80 font-body">
+        <div class="flex stars">
+          <i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i>
+        </div>
+        <span class="text-sm">4,9/5 sur Google — 152 avis</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="reveal bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
+        <div class="flex stars mb-4">
+          <i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i>
+        </div>
+        <p class="text-white/85 font-body text-sm sm:text-base mb-5">« Une agence très professionnelle, service agréable et rapide. Toutes mes démarches pour l'Omra ont été prises en charge sans stress. »</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sunset-400 to-sunset-600 flex items-center justify-center text-navy-950 font-display font-bold text-sm">KB</div>
+          <div>
+            <p class="text-white font-display font-semibold text-sm">Karim B.</p>
+            <p class="text-white/50 text-xs font-body">Avis Google</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
+        <div class="flex stars mb-4">
+          <i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i>
+        </div>
+        <p class="text-white/85 font-body text-sm sm:text-base mb-5">« Meilleur rapport qualité-prix à Alger, équipe au top ! Ils ont géré tout notre séjour en Turquie, même les petits imprévus sur place. »</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-azur-400 to-azur-500 flex items-center justify-center text-navy-950 font-display font-bold text-sm">SL</div>
+          <div>
+            <p class="text-white font-display font-semibold text-sm">Sarah L.</p>
+            <p class="text-white/50 text-xs font-body">Avis Google</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
+        <div class="flex stars mb-4">
+          <i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i><i data-lucide="star" class="w-4 h-4"></i>
+        </div>
+        <p class="text-white/85 font-body text-sm sm:text-base mb-5">« Réactifs et à l'écoute, ils nous ont trouvé un billet en urgence pour un voyage professionnel. Je recommande vivement Terminus Travel. »</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sunset-400 to-sunset-600 flex items-center justify-center text-navy-950 font-display font-bold text-sm">YM</div>
+          <div>
+            <p class="text-white font-display font-semibold text-sm">Yacine M.</p>
+            <p class="text-white/50 text-xs font-body">Avis Google</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FORMULAIRE DE DEVIS ================= -->
+<section id="devis" class="py-16 sm:py-20 md:py-28 bg-navy-900/[0.02]">
+  <div class="max-w-5xl mx-auto px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-14 reveal">
+      <span class="text-sunset-600 font-display font-semibold text-sm uppercase tracking-wider">Demande de Devis</span>
+      <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-navy-900 mt-3 mb-4">
+        Parlez-nous de votre prochain voyage
+      </h2>
+      <p class="text-navy-900/60 font-body">
+        Remplissez ce formulaire, notre équipe vous recontacte sous 24h avec une proposition personnalisée.
+      </p>
+    </div>
+
+    <form id="form-devis" class="reveal bg-white rounded-3xl shadow-card border border-navy-900/5 p-6 sm:p-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+        <div>
+          <label for="nom" class="block text-sm font-body font-semibold text-navy-900 mb-1.5">Nom complet *</label>
+          <input required type="text" id="nom" name="nom" placeholder="Ex : Amina Kaddour" class="w-full px-4 py-3 rounded-xl border border-navy-900/15 focus:border-sunset-500 focus:ring-2 focus:ring-sunset-500/20 outline-none transition-all font-body text-sm">
+        </div>
+        <div>
+          <label for="telephone" class="block text-sm font-body font-semibold text-navy-900 mb-1.5">Téléphone *</label>
+          <input required type="tel" id="telephone" name="telephone" placeholder="0555 12 34 56" class="w-full px-4 py-3 rounded-xl border border-navy-900/15 focus:border-sunset-500 focus:ring-2 focus:ring-sunset-500/20 outline-none transition-all font-body text-sm">
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-body font-semibold text-navy-900 mb-1.5">Email *</label>
+          <input required type="email" id="email" name="email" placeholder="vous@exemple.com" class="w-full px-4 py-3 rounded-xl border border-navy-900/15 focus:border-sunset-500 focus:ring-2 focus:ring-sunset-500/20 outline-none transition-all font-body text-sm">
+        </div>
+        <div>
+          <label for="destination" class="block text-sm font-body font-semibold text-navy-900 mb-1.5">Destination souhaitée *</label>
+          <select required id="destination" name="destination" class="w-full px-4 py-3 rounded-xl border border-navy-900/15 focus:border-sunset-500 focus:ring-2 focus:ring-sunset-500/20 outline-none transition-all font-body text-sm bg-white">
+            <option value="" disabled selected>Choisissez une formule</option>
+            <option value="omra">Omra</option>
+            <option value="turquie">Turquie</option>
+            <option value="tunisie">Tunisie</option>
+            <option value="europe">Europe</option>
+            <option value="national">Tourisme national (Taghit, Djanet...)</option>
+            <option value="billetterie">Billetterie & Visa</option>
+            <option value="autre">Autre / je ne sais pas encore</option>
+          </select>
+        </div>
+        <div>
+          <label for="voyageurs" class="block text-sm font-body font-semibold text-navy-900 mb-1.5">Nombre de voyageurs *</label>
+          <input required type="number" min="1" id="voyageurs" name="voyageurs" placeholder="Ex : 2" class="w-full px-4 py-3 rounded-xl border border-navy-900/15 focus:border-sunset-500 focus:ring-2 focus:ring-sunset-500/20 outline-none transition-all font-body text-sm">
+        </div>
+        <div>
+          <label for="date-depart" class="block text-sm font-body font-semibold text-navy-900 mb-1.5">Date de départ prévue</label>
+          <input type="date" id="date-depart" name="date-depart" class="w-full px-4 py-3 rounded-xl border border-navy-900/15 focus:border-sunset-500 focus:ring-2 focus:ring-sunset-500/20 outline-none transition-all font-body text-sm">
+        </div>
+        <div class="md:col-span-2">
+          <label for="message" class="block text-sm font-body font-semibold text-navy-900 mb-1.5">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Précisez vos attentes : budget, hôtel souhaité, dates flexibles..." class="w-full px-4 py-3 rounded-xl border border-navy-900/15 focus:border-sunset-500 focus:ring-2 focus:ring-sunset-500/20 outline-none transition-all font-body text-sm resize-none"></textarea>
+        </div>
+      </div>
+
+      <p id="erreur-form" class="hidden mt-4 text-sm text-red-600 font-body font-medium"></p>
+
+      <button type="submit" class="mt-7 w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-sunset-500 to-sunset-600 hover:from-sunset-400 hover:to-sunset-500 text-navy-950 font-display font-bold px-8 py-4 rounded-full shadow-lg shadow-sunset-600/30 transition-all">
+        <i data-lucide="send" class="w-4 h-4"></i>
+        Envoyer ma demande
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= POPUP SUCCÈS ================= -->
+<div id="modal-succes" class="fixed inset-0 z-[100] hidden items-center justify-center bg-navy-950/70 backdrop-blur-sm px-5 opacity-0">
+  <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center shadow-2xl scale-95 transition-transform duration-300" id="modal-succes-box">
+    <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+      <i data-lucide="check-circle-2" class="w-9 h-9"></i>
+    </div>
+    <h3 class="font-display font-bold text-xl text-navy-900 mb-2">Demande envoyée !</h3>
+    <p class="text-navy-900/60 font-body text-sm mb-6">
+      Merci ! Votre demande de devis a bien été reçue. Un conseiller Terminus Travel vous recontacte sous 24h.
+    </p>
+    <button id="btn-fermer-modal" class="w-full bg-navy-900 hover:bg-navy-950 text-white font-display font-semibold px-6 py-3 rounded-full transition-colors">
+      Fermer
+    </button>
+  </div>
+</div>
+
+<!-- ================= CONTACT / LOCALISATION ================= -->
+<section id="contact" class="py-16 sm:py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+    <div class="reveal">
+      <span class="text-sunset-600 font-display font-semibold text-sm uppercase tracking-wider">Nous trouver</span>
+      <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-navy-900 mt-3 mb-6">Une question ? Passez à l'agence</h2>
+      <ul class="space-y-4 font-body">
+        <li class="flex items-start gap-3">
+          <span class="w-10 h-10 rounded-lg bg-sunset-500/10 flex items-center justify-center text-sunset-600 shrink-0"><i data-lucide="map-pin" class="w-5 h-5"></i></span>
+          <span class="text-navy-900/80 text-sm sm:text-base pt-2">117 Route Neuve, Bouzareah, Alger</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="w-10 h-10 rounded-lg bg-azur-500/10 flex items-center justify-center text-azur-500 shrink-0"><i data-lucide="clock" class="w-5 h-5"></i></span>
+          <span class="text-navy-900/80 text-sm sm:text-base pt-2">Dim – Jeu : 9h00 – 17h30 · Sam : 9h00 – 13h00</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="w-10 h-10 rounded-lg bg-sunset-500/10 flex items-center justify-center text-sunset-600 shrink-0"><i data-lucide="phone" class="w-5 h-5"></i></span>
+          <span class="text-navy-900/80 text-sm sm:text-base pt-2">0555 00 00 00</span>
+        </li>
+      </ul>
+    </div>
+    <div class="reveal rounded-3xl overflow-hidden shadow-card h-72 sm:h-96 border border-navy-900/5">
+      <iframe
+        src="https://www.google.com/maps?q=117+Route+Neuve,+Bouzareah,+Alger&output=embed"
+        class="w-full h-full border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Localisation Terminus Travel Alger, 117 Route Neuve, Bouzareah"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-navy-950 pt-14 pb-8">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-10 border-b border-white/10">
+      <div class="sm:col-span-2 lg:col-span-1">
+        <a href="#accueil" class="flex items-center gap-2 mb-4">
+          <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-sunset-400 to-sunset-600 text-navy-950">
+            <i data-lucide="plane-takeoff" class="w-5 h-5"></i>
+          </span>
+          <span class="font-display font-bold text-lg text-white">Terminus <span class="text-sunset-400">Travel</span></span>
+        </a>
+        <p class="text-white/50 text-sm font-body leading-relaxed">
+          Votre agence de voyages de confiance à Bouzareah, Alger. Omra, séjours internationaux, tourisme national et billetterie.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="font-display font-semibold text-white mb-4 text-sm">Navigation</h4>
+        <ul class="space-y-2.5 text-sm font-body text-white/50">
+          <li><a href="#accueil" class="hover:text-sunset-400 transition-colors">Accueil</a></li>
+          <li><a href="#formules" class="hover:text-sunset-400 transition-colors">Nos Formules</a></li>
+          <li><a href="#avis" class="hover:text-sunset-400 transition-colors">Avis</a></li>
+          <li><a href="#contact" class="hover:text-sunset-400 transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-display font-semibold text-white mb-4 text-sm">Contact</h4>
+        <ul class="space-y-2.5 text-sm font-body text-white/50">
+          <li class="flex items-start gap-2"><i data-lucide="map-pin" class="w-4 h-4 mt-0.5 shrink-0"></i> 117 Rte Neuve, Bouzareah, Alger</li>
+          <li class="flex items-start gap-2"><i data-lucide="phone" class="w-4 h-4 mt-0.5 shrink-0"></i> 0555 00 00 00</li>
+          <li class="flex items-start gap-2"><i data-lucide="mail" class="w-4 h-4 mt-0.5 shrink-0"></i> contact@terminustravel-dz.com</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-display font-semibold text-white mb-4 text-sm">Suivez-nous</h4>
+        <div class="flex gap-3">
+          <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sunset-500 hover:text-navy-950 text-white flex items-center justify-center transition-colors"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+          <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sunset-500 hover:text-navy-950 text-white flex items-center justify-center transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+          <a href="#" aria-label="WhatsApp" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sunset-500 hover:text-navy-950 text-white flex items-center justify-center transition-colors"><i data-lucide="message-circle" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-white/40 text-xs font-body text-center sm:text-left">© 2026 Terminus Travel Alger. Tous droits réservés.</p>
+      <p class="text-white/40 text-xs font-body">117 Route Neuve, Bouzareah, Alger — Algérie</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Bouton flottant WhatsApp -->
+<a href="#" aria-label="Contacter sur WhatsApp" class="fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center justify-center shadow-xl shadow-green-600/30 transition-colors">
+  <i data-lucide="message-circle" class="w-6 h-6"></i>
+</a>
+
+<script>
+  // Initialise les icônes Lucide
+  lucide.createIcons();
+
+  // ---- Menu burger mobile ----
+  const btnMenu = document.getElementById('btn-menu');
+  const menuMobile = document.getElementById('menu-mobile');
+  const iconOpen = document.getElementById('icon-menu-open');
+  const iconClose = document.getElementById('icon-menu-close');
+
+  function toggleMenu() {
+    const isOpen = menuMobile.classList.toggle('open');
+    iconOpen.classList.toggle('hidden', isOpen);
+    iconClose.classList.toggle('hidden', !isOpen);
+  }
+  btnMenu.addEventListener('click', toggleMenu);
+
+  // Ferme le menu mobile au clic sur un lien
+  document.querySelectorAll('.nav-mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      menuMobile.classList.remove('open');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    });
+  });
+
+  // ---- Fade-in au scroll (Intersection Observer) ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // ---- Validation + soumission simulée du formulaire de devis ----
+  const formDevis = document.getElementById('form-devis');
+  const erreurForm = document.getElementById('erreur-form');
+  const modalSucces = document.getElementById('modal-succes');
+  const modalSuccesBox = document.getElementById('modal-succes-box');
+  const btnFermerModal = document.getElementById('btn-fermer-modal');
+
+  function emailValide(valeur) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valeur);
+  }
+
+  formDevis.addEventListener('submit', function (e) {
+    e.preventDefault();
+    erreurForm.classList.add('hidden');
+
+    const nom = document.getElementById('nom').value.trim();
+    const telephone = document.getElementById('telephone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const destination = document.getElementById('destination').value;
+    const voyageurs = document.getElementById('voyageurs').value;
+
+    if (!nom || !telephone || !email || !destination || !voyageurs) {
+      erreurForm.textContent = 'Merci de remplir tous les champs obligatoires (marqués d\'un *).';
+      erreurForm.classList.remove('hidden');
+      return;
+    }
+    if (!emailValide(email)) {
+      erreurForm.textContent = 'Merci de saisir une adresse email valide.';
+      erreurForm.classList.remove('hidden');
+      return;
+    }
+
+    // Simulation d'envoi réussi (pas de backend réel)
+    ouvrirModalSucces();
+    formDevis.reset();
+  });
+
+  function ouvrirModalSucces() {
+    modalSucces.classList.remove('hidden');
+    modalSucces.classList.add('flex');
+    requestAnimationFrame(() => {
+      modalSucces.classList.remove('opacity-0');
+      modalSuccesBox.classList.remove('scale-95');
+    });
+  }
+
+  function fermerModalSucces() {
+    modalSucces.classList.add('opacity-0');
+    modalSuccesBox.classList.add('scale-95');
+    setTimeout(() => {
+      modalSucces.classList.add('hidden');
+      modalSucces.classList.remove('flex');
+    }, 300);
+  }
+
+  btnFermerModal.addEventListener('click', fermerModalSucces);
+  modalSucces.addEventListener('click', (e) => {
+    if (e.target === modalSucces) fermerModalSucces();
+  });
+
+  // ---- Navbar : ombre renforcée au scroll ----
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      navbar.classList.add('shadow-2xl');
+    } else {
+      navbar.classList.remove('shadow-2xl');
+    }
+  });
+</script>
+
+</body>
+</html>
